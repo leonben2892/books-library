@@ -1,0 +1,69 @@
+<section>
+  <div class="d-flex tableTop mb-4">
+    <div>
+      <h5>{{ config.tableName }}</h5>
+      <h6>Total Records: {{ tableData?.total }}</h6>
+    </div>
+    <div>
+      <!-- user defined top buttons -->
+      <button *ngFor="let actionBtn of config.topActionBtns" [class]="actionBtn.style + ' btn-sm'" (click)="actionBtn.onClick()" [innerHTML]="actionBtn.labelInnerHTML"></button>
+
+      <!-- refresh table button -->
+      <button class="btn text-muted btn-sm" (click)="refreshTable()"><i class="fas fa-sync"></i></button>
+    </div>
+  </div>
+
+  <div class="tableContainer table-responsive mt-3">
+    <table class="table table-striped table-sm position-relative">
+      <thead>
+        <tr>
+          <th *ngFor="let tableColumn of config.tableColumns">{{ tableColumn.header }}</th>
+          <th *ngIf="config.actionBtns">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-container *ngIf="tableData?.data?.length > 0; else noDataFound">
+          <tr *ngFor="let itemData of tableData?.data;">
+            <td *ngFor="let tableColumn of config.tableColumns">
+              <ng-container [ngSwitch]="tableColumn.columnType">
+                <!-- Text -->
+                <ng-template [ngSwitchCase]="0">
+                  {{ itemData[tableColumn.value] | modifyStringLengthPipe: 30 }}
+                </ng-template>
+
+                <!-- Number -->
+                <ng-template [ngSwitchCase]="1">
+                  {{ itemData[tableColumn.value] }}
+                </ng-template>
+
+                <!-- Date -->
+                <ng-template [ngSwitchCase]="2">
+                  {{ itemData[tableColumn.value] | date }}
+                </ng-template>
+              </ng-container>
+            </td>
+            <td *ngIf="config.actionBtns">
+              <button *ngFor="let actionBtn of config.actionBtns" [class]="actionBtn.style + ' btn-sm'" (click)="actionBtn.onClick(itemData)" [innerHTML]="actionBtn.labelInnerHTML"></button>
+            </td>
+          </tr>
+        </ng-container>
+
+        <ng-template #noDataFound>
+          <tr>
+            <td [attr.colspan]="config.actionBtns ? config.tableColumns.length + 1 : config.tableColumns.length">
+              No data found
+            </td>
+          </tr>
+        </ng-template>
+      </tbody>
+    </table>
+
+    <!-- Loading effect -->
+    <div class="d-flex justify-content-center align-items-center loadingEffect" *ngIf="IsDataLoading | async"><div class="spinner-grow text-secondary" role="status"><span class="sr-only">Loading...</span></div></div>
+  </div>
+
+</section>
+
+<div class="tableFormContainer">
+  <router-outlet></router-outlet>
+</div>

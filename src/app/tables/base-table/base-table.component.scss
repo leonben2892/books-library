@@ -1,0 +1,87 @@
+/* Importing Bootstrap SCSS file. */
+@import '~bootstrap/scss/bootstrap';
+
+section {
+  position: relative;
+  padding: 2rem;
+
+  @media (max-width: 767px) {
+    padding: 1.2rem;
+  }
+}
+
+table {
+  border-collapse: separate !important; /* Don't collapse */
+  border-spacing: 0 !important;
+}
+
+th {
+  position: sticky;
+  top: 0;
+  font-size: 13px;
+  padding: 0.8rem 1rem !important;
+  text-align: center;
+  background-color: white;
+  border-top: 1px solid #ddd !important;
+  border-bottom: 1px solid #ddd !important;
+
+  @media (max-width: 567px) {
+    padding: 0.8rem 1.5rem !important;
+  }
+}
+
+td {
+    text-align: center;
+    vertical-align: middle !important;
+    font-size: 13px;
+    border: none !important;
+}
+
+
+.tableTop {
+  justify-content: space-between;
+
+  @media (max-width: 767px) {
+    justify-content: center;
+    text-align: center;
+    flex-direction: column !important;
+  }
+}
+
+.tableContainer {
+  height: 50vh;
+
+  /* width */
+  &::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  /* Track */
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  /* Handle */
+  &::-webkit-scrollbar-thumb {
+    background: rgb(218, 218, 218);
+    border-radius: 100px;
+  }
+}
+
+.tableFormContainer {
+  position: fixed;
+  top: 0;
+  right: 0;
+}
+
+.loadingEffect {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.6);
+  z-index: 1;
+}
+

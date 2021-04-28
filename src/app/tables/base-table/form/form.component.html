@@ -1,0 +1,41 @@
+<div class="sideForm {{ config.tableForm.formSize }}" *ngIf="IsFormVisible | async" [@slideAnimation] (@slideAnimation.done)="slideAnimationEnd($event)">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-12 d-flex justify-content-end mb-3">
+        <button class="d-flex justify-content-center align-items-center btn cancelBtn" (click)="onCancel()"><img src="../../../../assets/icon_cancel.svg" alt="cancel icon" width="16px" height="16px"></button>
+      </div>
+    </div>
+    <form [formGroup]="tableForm" (ngSubmit)="onSubmit()" class="row">
+      <div class="col-12 mb-3">
+        <h5>Create {{ config.tableForm.formLabel }}</h5>
+      </div>
+      <div class="col-12 mb-3" *ngFor="let control of config.tableForm.controls; let i = index">
+        <label [for]="control.name">{{ control.label }} <span class="text-danger" *ngIf="tableForm.get(control.name).errors?.required">*</span></label>
+        <ng-container [ngSwitch]="control.type">
+          <!-- Text -->
+          <ng-template [ngSwitchCase]="0">
+            <input type="text" [formControlName]="control.name" class="form-control"/>
+          </ng-template>
+
+          <!-- Date -->
+          <ng-template [ngSwitchCase]="2">
+            <input type="date" [formControlName]="control.name" class="form-control" />
+          </ng-template>
+
+          <!-- Display errors for control if needed -->
+          <ng-container *ngFor="let error of control.validators?.errorMessages | keyvalue">
+            <small class="d-block text-danger mt-1" *ngIf="tableForm.get(control.name).hasError(error.key) && tableForm.get(control.name).dirty && tableForm.get(control.name).touched">{{ error.value }}</small>
+          </ng-container>
+        </ng-container>
+      </div>
+      <div class="col-12 mt-3">
+        <button type="submit" class="btn btn-primary" [disabled]="tableForm.invalid">Submit</button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Loading effect -->
+  <div class="d-flex justify-content-center align-items-center loadingEffect" *ngIf="IsDataLoading | async"><div class="spinner-grow text-secondary" role="status"><span class="sr-only">Loading...</span></div></div>
+</div>
+<div class="overlay" *ngIf="IsComponentOn | async" [@fadeAnimation] (@fadeAnimation.done)="fadeAnimationEnd($event)"></div>
+

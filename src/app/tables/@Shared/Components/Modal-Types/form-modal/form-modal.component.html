@@ -1,0 +1,32 @@
+<div class="modal-header">
+  <h5 class="modal-title mb-0" id="modal-basic-title">{{ header }}</h5>
+  <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('closed')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <form [formGroup]="modalForm" class="row">
+    <div class="col-12 mb-3" *ngFor="let control of form?.controls; let i = index">
+      <label [for]="control.name">{{ control.label }} <span class="text-danger" *ngIf="modalForm.get(control.name).errors?.required">*</span></label>
+      <ng-container [ngSwitch]="control.type">
+        <!-- Text -->
+        <ng-template [ngSwitchCase]="0">
+          <input type="text" [formControlName]="control.name" class="form-control"/>
+        </ng-template>
+        <!-- Date -->
+        <ng-template [ngSwitchCase]="2">
+          <input type="date" [formControlName]="control.name" class="form-control" />
+        </ng-template>
+
+        <!-- Display errors for control if needed -->
+        <ng-container *ngFor="let error of control.validators?.errorMessages | keyvalue">
+          <small class="d-block text-danger" *ngIf="modalForm.get(control.name).hasError(error.key)">{{ error.value }}</small>
+        </ng-container>
+      </ng-container>
+    </div>
+  </form>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-outline-dark" (click)="activeModal.dismiss('closed')">Cancel</button>
+  <button type="button" class="btn btn-outline-primary" [disabled]="modalForm.invalid" (click)="onSubmit()">Save</button>
+</div>

@@ -1,0 +1,86 @@
+.sideForm {
+  position: relative;
+  height: 100vh;
+  padding: 2rem;
+  background-color: white;
+  box-shadow: -2px 0px 6px 0px rgba(0,0,0,0.16);
+  z-index: 2;
+  overflow-y: scroll;
+
+  &::-webkit-scrollbar {
+    width: 0;
+    background: transparent;
+  }
+
+  &.sm {
+    width: 30vw;
+  }
+
+  &.md {
+    width: 40vw;
+  }
+
+  &.lg {
+    width: 60vw;
+  }
+
+  &.xl {
+    width: 100vw;
+  }
+
+  @media (max-width: 991px) {
+    &.sm {
+      width: 35vw;
+    }
+
+    &.md {
+      width: 45vw;
+    }
+
+    &.lg {
+      width: 65vw;
+    }
+
+    &.xl {
+      width: 100vw;
+    }
+  }
+
+  @media (max-width: 575px) {
+    &.sm, &.md, &.lg, &.xl {
+      width: 100vw;
+    }
+  }
+}
+
+.cancelBtn {
+  background-color: #ddd;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  box-shadow: none;
+
+  &:hover {
+    background-color: rgb(200, 200, 200);
+  }
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba($color: #000000, $alpha: 0.5);
+  z-index: 1;
+}
+
+.loadingEffect {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.6);
+  z-index: 1;
+}

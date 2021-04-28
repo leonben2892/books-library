@@ -1,0 +1,6 @@
+<div class="notificationsContainer">
+  <div class="notification notification--{{ notification.style }}" *ngFor="let notification of notificationsService.notifications | async; let i = index" [@inOutAnimation]>
+    <div class="text-light float-right notification__removeNotification" (click)="notificationsService.removeNotification(i)"><i class="fas fa-times"></i></div>
+    <div><small class="text-light">{{ notification.message }}</small></div>
+  </div>
+</div>

@@ -138,12 +138,6 @@ export class BookResolverService {
             }
           }
         },
-      ]
-    };
-
-    if (IsEditMode === false) {
-      form.controls.push
-      (
         {
           name: 'title',
           label: 'Title',
@@ -157,25 +151,8 @@ export class BookResolverService {
             }
           }
         }
-      );
-    } else {
-      form.controls.push
-      (
-        {
-          name: 'title',
-          label: 'Title',
-          type: DataType.Text,
-          validators: {
-            validators: [Validators.required, bookTitlePatternValidator(this.bookService)],
-            errorMessages: {
-              required: 'Title is required',
-              titleInvalidPattern: 'Title should only contain alphabetic letters'
-            }
-          }
-        }
-      );
-    }
-
+      ]
+    };
     return form;
   }
 
